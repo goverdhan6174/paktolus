@@ -8,11 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useDataContext } from 'src/contexts/DataContext';
-import {
-  Card as GameCard,
-  GameSlot,
-  GameSlotStatus
-} from 'src/models/game_slot';
+import { Card as GameCard } from 'src/models/game_slot';
 import { cardCombination } from 'src/utils/cardCombination';
 import { randomString } from 'src/utils/random';
 
@@ -116,6 +112,7 @@ const getCombinationIcons = (combination: GameCard[]): JSX.Element[] => {
 
 function Hero() {
   const [open, setOpen] = useState(false);
+  const [balanceError, setBalanceError] = useState(false);
   const [gameResult, setGameResult] = useState({
     status: '',
     combination: [],
@@ -131,14 +128,19 @@ function Hero() {
 
   const {
     auth: { isAuthenticated },
-    addRecord
+    addRecord,
+    user: { balance }
   } = useDataContext();
 
   const handleClickOpen = (win = false) => {
-    setOpen(true);
-    let combination = cardCombination(win);
-    setGameResult(combination);
-    addRecord({ ...combination, gameID: randomString() });
+    if (balance >= 2 || !isAuthenticated) {
+      setOpen(true);
+      let combination = cardCombination(win);
+      setGameResult(combination);
+      addRecord({ ...combination, gameID: randomString() });
+    } else {
+      setBalanceError(true);
+    }
   };
   const handleClose = () => {
     setOpen(false);
@@ -170,6 +172,15 @@ function Hero() {
               You are playing as a Guest
             </Typography>
           )}
+
+          {balanceError && (
+            <Typography>
+              <LabelWrapperError>
+                You don't have enough balance
+              </LabelWrapperError>
+            </Typography>
+          )}
+
           <Button
             size="large"
             variant="contained"
