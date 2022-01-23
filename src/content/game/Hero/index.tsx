@@ -133,7 +133,7 @@ function Hero() {
   } = useDataContext();
 
   const handleClickOpen = (win = false) => {
-    if (balance >= 2 || !isAuthenticated) {
+    if (balance >= 2 || !isAuthenticated || win) {
       setOpen(true);
       let combination = cardCombination(win);
       setGameResult(combination);
