@@ -9,4 +9,4 @@ inputs:
 
 runs:
   using: 'node12'
-  main: 'github_actions/package-version-checker'
+  main: './github_actions/package-version-checker'
