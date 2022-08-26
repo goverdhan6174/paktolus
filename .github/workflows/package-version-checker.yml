@@ -1,0 +1,22 @@
+name: Version Checker
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'icons/**'
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - uses: actions/package-version-checker@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
