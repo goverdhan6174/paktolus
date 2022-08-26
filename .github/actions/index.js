@@ -82,7 +82,7 @@ try {
   octokit
     .request(`GET ${baseUrl}`, { owner, repo, baseSha })
     .then((res) => {
-      core.info(res);
+      core.info(JSON.stringify(res));
       const { content } = res.data;
       const decodedRequestContentString = Buffer.from(content, 'base64');
       const requestJSON = JSON.parse(decodedRequestContentString);
