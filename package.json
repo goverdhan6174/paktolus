@@ -38,7 +38,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "buildAction": "ncc build .github/actions/index.js -o dist/package-version-checker",
+    "buildAction": "ncc build .github/actions/index.js -o dist",
     "eject": "react-scripts eject",
     "test": "react-scripts test"
   },
