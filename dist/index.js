@@ -12386,9 +12386,7 @@
         .then((res) => {
           core.info(JSON.stringify(res.data));
           const content = JSON.parse(res.data);
-          const decodedRequestContentString = Buffer.from(content, 'base64');
-          const requestJSON = JSON.parse(decodedRequestContentString);
-          return requestJSON;
+          return content;
         })
         .then((res) => res.version)
         .then((version) => {
