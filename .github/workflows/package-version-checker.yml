@@ -17,6 +17,6 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branch }}
 
-      - uses: /.github/actions/
+      - uses: ./.github/actions
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
