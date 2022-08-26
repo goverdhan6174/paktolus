@@ -89,13 +89,13 @@ try {
       const localVersion =
         require(`${process.env.GITHUB_WORKSPACE}/package.json`).version;
 
-      if (!isValidFormat(version))
+      if (!isValidFormat(localVersion))
         core.setFailed(
-          `Version '${version}' detected as invalid one. Format {{ n.n.n }} where n is number`
+          `Version '${localVersion}' detected as invalid one. Format {{ n.n.n }} where n is number`
         );
-      if (!isValidBumped(version, localVersion))
+      if (!isValidBumped(localVersion, version))
         core.setFailed(
-          `Version '${version}' wasn't detected as greater than '${localVersion}'`
+          `Version '${localVersion}' wasn't detected as greater than '${version}'`
         );
     })
     .catch(core.setFailed);
