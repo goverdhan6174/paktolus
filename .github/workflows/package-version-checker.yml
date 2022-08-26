@@ -1,8 +1,7 @@
 name: Version Checker
 
 on:
-  pull_request:
-    types: [opened, reopened]
+  pull_request
   push:
     branches: [main]
 
