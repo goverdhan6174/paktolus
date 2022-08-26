@@ -5,6 +5,8 @@
   "description": "Paktolus challenge project to build Slot Casino frontend with React & Material-UI",
   "private": false,
   "dependencies": {
+    "@actions/core": "^1.9.1",
+    "@actions/github": "^5.0.3",
     "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "@mui/icons-material": "5.0.3",
