@@ -17,6 +17,6 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branch }}
 
-      - uses: actions/package-version-checker@v1
+      - uses: github_actions/package-version-checker
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

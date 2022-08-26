@@ -36,6 +36,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "buildAction": "ncc build .github/actions/index.js -o github_actions/package-version-checker.js",
     "eject": "react-scripts eject",
     "test": "react-scripts test"
   },
@@ -65,6 +66,7 @@
     "@types/react-router-dom": "5.3.0",
     "@typescript-eslint/eslint-plugin": "5.0.0",
     "@typescript-eslint/parser": "5.0.0",
+    "@vercel/ncc": "^0.34.0",
     "eslint": "7.32.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-airbnb-typescript": "14.0.1",

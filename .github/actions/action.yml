@@ -1,0 +1,12 @@
+name: 'Package Version Checker'
+description: 'Checks for valid Package Version'
+author: 'Author Name'
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token'
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'github_actions/package-version-checker'
