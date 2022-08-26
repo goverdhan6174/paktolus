@@ -9770,7 +9770,7 @@ function isValidBumped(nextVersion, previousVersion) {
 
 try {
   if (github.context.eventName !== 'pull_request') {
-    core.info('Skipping as it is not pull request');
+    core.info(`Skipping as it is not pull request ${github.context.eventName}`);
     return;
   }
 
