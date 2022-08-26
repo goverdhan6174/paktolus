@@ -9,4 +9,4 @@ inputs:
 
 runs:
   using: 'node12'
-  main: 'dist/package-version-checker'
+  main: 'dist/package-version-checker/index.js'
