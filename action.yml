@@ -3,9 +3,10 @@ description: 'Checks for valid Package Version'
 author: 'Author Name'
 
 inputs:
-  GITHUB_TOKEN:
+  token:
     description: 'GitHub token'
-    required: true
+    required: false
+    default: ''
 
 runs:
   using: 'node12'
