@@ -20,7 +20,7 @@ function isValidBumped(nextVersion, previousVersion) {
     return versionArray;
   };
 
-  let currArrayVersion = covertToNumberArray(nextVersion);
+  let nextArrayVersion = covertToNumberArray(nextVersion);
   let prevArrayVersion = covertToNumberArray(previousVersion);
 
   /**
@@ -34,22 +34,22 @@ function isValidBumped(nextVersion, previousVersion) {
    */
 
   if (
-    currArrayVersion[0] < 1 ||
-    currArrayVersion[1] < 0 ||
-    currArrayVersion[2] < 0
+    nextArrayVersion[0] < 1 ||
+    nextArrayVersion[1] < 0 ||
+    nextArrayVersion[2] < 0
   )
     return false;
 
   if (
-    (currArrayVersion[0] + 1 === prevArrayVersion[0] &&
-      currArrayVersion[1] === 0 &&
-      currArrayVersion[2] === 0) ||
-    (currArrayVersion[0] === prevArrayVersion[0] &&
-      currArrayVersion[1] + 1 === prevArrayVersion[1] &&
-      currArrayVersion[2] === 0) ||
-    (currArrayVersion[0] === prevArrayVersion[0] &&
-      currArrayVersion[1] === prevArrayVersion[1] &&
-      currArrayVersion[2] + 1 === prevArrayVersion[2])
+    (nextArrayVersion[0] === prevArrayVersion[0] + 1 &&
+      nextArrayVersion[1] === 0 &&
+      nextArrayVersion[2] === 0) ||
+    (nextArrayVersion[0] === prevArrayVersion[0] &&
+      nextArrayVersion[1] === prevArrayVersion[1] + 1 &&
+      nextArrayVersion[2] === 0) ||
+    (nextArrayVersion[0] === prevArrayVersion[0] &&
+      nextArrayVersion[1] === prevArrayVersion[1] &&
+      nextArrayVersion[2] === prevArrayVersion[2] + 1)
   )
     return true;
 
@@ -82,24 +82,20 @@ try {
   octokit
     .request(`GET ${baseUrl}`, { owner, repo, baseSha })
     .then((res) => {
-      core.info(res);
-      const { content } = res.data;
-      const decodedRequestContentString = Buffer.from(content, 'base64');
-      const requestJSON = JSON.parse(decodedRequestContentString);
-      return requestJSON;
+      return JSON.parse(res.data);
     })
     .then((res) => res.version)
     .then((version) => {
       const localVersion =
         require(`${process.env.GITHUB_WORKSPACE}/package.json`).version;
 
-      if (!isValidFormat('version'))
+      if (!isValidFormat(localVersion))
         core.setFailed(
-          `Version '${version}' detected as invalid one. Format {{ n.n.n }} where n is number`
+          `Version '${localVersion}' detected as invalid one. Format {{ n.n.n }} where n is number`
         );
-      if (!isValidBumped(version, localVersion))
+      if (!isValidBumped(localVersion, version))
         core.setFailed(
-          `Version '${version}' wasn't detected as greater than '${localVersion}'`
+          `Version '${localVersion}' wasn't detected as greater than '${version}'`
         );
     })
     .catch(core.setFailed);
