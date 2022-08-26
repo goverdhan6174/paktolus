@@ -81,7 +81,13 @@ try {
 
   octokit
     .request(`GET ${baseUrl}`, { owner, repo, baseSha })
-    .then((res) => res.json())
+    .then((res) => {
+      core.info(res);
+      const { content } = res.data;
+      const decodedRequestContentString = Buffer.from(content, 'base64');
+      const requestJSON = JSON.parse(decodedRequestContentString);
+      return requestJSON;
+    })
     .then((res) => res.version)
     .then((version) => {
       const localVersion =
