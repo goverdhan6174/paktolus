@@ -9732,7 +9732,7 @@ function isValidBumped(nextVersion, previousVersion) {
     return versionArray;
   };
 
-  let currArrayVersion = covertToNumberArray(nextVersion);
+  let nextArrayVersion = covertToNumberArray(nextVersion);
   let prevArrayVersion = covertToNumberArray(previousVersion);
 
   /**
@@ -9746,22 +9746,22 @@ function isValidBumped(nextVersion, previousVersion) {
    */
 
   if (
-    currArrayVersion[0] < 1 ||
-    currArrayVersion[1] < 0 ||
-    currArrayVersion[2] < 0
+    nextArrayVersion[0] < 1 ||
+    nextArrayVersion[1] < 0 ||
+    nextArrayVersion[2] < 0
   )
     return false;
 
   if (
-    (currArrayVersion[0] + 1 === prevArrayVersion[0] &&
-      currArrayVersion[1] === 0 &&
-      currArrayVersion[2] === 0) ||
-    (currArrayVersion[0] === prevArrayVersion[0] &&
-      currArrayVersion[1] + 1 === prevArrayVersion[1] &&
-      currArrayVersion[2] === 0) ||
-    (currArrayVersion[0] === prevArrayVersion[0] &&
-      currArrayVersion[1] === prevArrayVersion[1] &&
-      currArrayVersion[2] + 1 === prevArrayVersion[2])
+    (nextArrayVersion[0] === prevArrayVersion[0] + 1 &&
+      nextArrayVersion[1] === 0 &&
+      nextArrayVersion[2] === 0) ||
+    (nextArrayVersion[0] === prevArrayVersion[0] &&
+      nextArrayVersion[1] === prevArrayVersion[1] + 1 &&
+      nextArrayVersion[2] === 0) ||
+    (nextArrayVersion[0] === prevArrayVersion[0] &&
+      nextArrayVersion[1] === prevArrayVersion[1] &&
+      nextArrayVersion[2] === prevArrayVersion[2] + 1)
   )
     return true;
 
