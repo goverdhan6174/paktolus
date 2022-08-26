@@ -84,12 +84,17 @@ try {
     .then((res) => res.json())
     .then((res) => res.version)
     .then((version) => {
-      const localVersion = require(`${process.env.GITHUB_WORKSPACE}/package.json`).version;
+      const localVersion =
+        require(`${process.env.GITHUB_WORKSPACE}/package.json`).version;
 
-      if (!isValidFormat('version')) 
-       core.setFailed(`Version '${version}' detected as invalid one. Format {{ n.n.n }} where n is number`);
-      if (!isValidBumped(version, localVersion)) 
-       core.setFailed(`Version '${version}' wasn't detected as greater than '${localVersion}'`);
+      if (!isValidFormat('version'))
+        core.setFailed(
+          `Version '${version}' detected as invalid one. Format {{ n.n.n }} where n is number`
+        );
+      if (!isValidBumped(version, localVersion))
+        core.setFailed(
+          `Version '${version}' wasn't detected as greater than '${localVersion}'`
+        );
     })
     .catch(core.setFailed);
 } catch (error) {
