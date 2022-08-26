@@ -82,18 +82,14 @@ try {
   octokit
     .request(`GET ${baseUrl}`, { owner, repo, baseSha })
     .then((res) => {
-      core.info(JSON.parse(res.data));
-      const content = JSON.parse(res.data);
-      const decodedRequestContentString = Buffer.from(content, 'base64');
-      const requestJSON = JSON.parse(decodedRequestContentString);
-      return requestJSON;
+      return JSON.parse(res.data);
     })
     .then((res) => res.version)
     .then((version) => {
       const localVersion =
         require(`${process.env.GITHUB_WORKSPACE}/package.json`).version;
 
-      if (!isValidFormat('version'))
+      if (!isValidFormat(version))
         core.setFailed(
           `Version '${version}' detected as invalid one. Format {{ n.n.n }} where n is number`
         );
