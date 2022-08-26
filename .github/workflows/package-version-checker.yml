@@ -3,10 +3,6 @@ name: Version Checker
 on:
   push:
     branches: [main]
-  pull_request:
-    paths:
-      - 'src/**'
-      - 'icons/**'
 
 jobs:
   check-version:
